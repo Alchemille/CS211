@@ -36,11 +36,14 @@ void mouseDragged() { // controls rotation around X and Z (the 2 axes of the scr
   rz = map(valueZ, 0, width, -PI/3, PI/3);
 }
 
-void mouseWheel() { // controls speed for the rotation
-  mouseScale=-event.getCount();
-  if (mouseScale>0) {
-    speed = speed * 1.1;
-  } else if (mouseScale<0) {
+void mouseWheel(MouseEvent event) { // controls speed for the rotation
+
+  float mouseScale = event.getCount(); // number of steps of the wheel
+  
+  if (mouseScale>0) { // speed increases (wheel down)
+    speed = speed * 1.1; 
+  }
+  else if (mouseScale<0) { // speed decreases (wheel up)
     speed = speed / 1.1;
   }
   println(speed);
