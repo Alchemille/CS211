@@ -1,3 +1,4 @@
+Mover ball;
 
 float valueX=0;
 float valueZ=0;
@@ -12,6 +13,7 @@ void settings() {
 }
 void setup() {
   noStroke();
+  ball = new Mover();
 }
 void draw() {
 
@@ -22,8 +24,14 @@ void draw() {
   translate(width/2, height/2, 0); // figure stays in center
   rotateX(rx); // applies rotation changes requested through mouseDragged
   rotateZ(rz);
-  fill(100, 100, 0);
-  box(300, 30, 300);
+  
+  fill(0,0,255);
+  box(300, 10, 300);
+  
+  ball.update();
+  ball.checkEdges();
+  ball.display(); // needs to be called after translate and rotate to be in right referential
+  
 }
 
 
