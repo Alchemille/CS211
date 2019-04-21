@@ -1,4 +1,4 @@
-// aim of program: draw a tornado that passes through a transparent 3D sphere //<>// //<>//
+// aim of program: draw a tornado that passes through a transparent 3D sphere
 // problem: tornado not visible inside the sphere
 
 float y;
@@ -11,18 +11,21 @@ float rM = 50.;
 float rS = 30.;
 
 float angle = 0.01;
-float up_down = 3;
+float up_down = 5;
 float left_right = 0;
 int s = 1;
 PShape torn, tornM, tornS;
 float cx, cy;
-boolean init=false;
+
+boolean init=true;
+boolean init_long = false;
 
 void setup() {
 
   size(1100, 800, P3D);
   background(0);
   //noFill();
+  fill(0);
 
   torn = createShape();
   torn.beginShape(TRIANGLES);
@@ -63,15 +66,23 @@ void draw() {
 
   // 2. draw the transparent sphere in the initial referential
 
+  print(init);
+
   translate(width/2, height/2);
-  strokeWeight(0.1);
+
   if (init == true) {
+    strokeWeight(0.5);
     stroke(255, 140, 0);
     sphere(r_sphere);
-    delay(1000);
+    init_long = true;
+  } else if (init_long == true) {
+
+    delay(100);
+    strokeWeight(0.1);
+    stroke(155, 220, 220);
+    sphere(r_sphere);
+    init_long = false;
   }
-  //stroke(155, 220, 220);
-  //sphere(r_sphere);
 
   // 1. draw tornado in new referential
 
@@ -110,13 +121,13 @@ void reinitDown() {
 }
 
 void manageOrientation() {
-  if (y>=0+r_sphere) {
+  if (y>0+r_sphere) {
     reinitDown();
-  } else if (y<=0-r_sphere) {
+  } else if (y<0-r_sphere) {
     reinitUp();
   } else {
-    noFill();
-    init = false; 
+    //noFill();
+    init = false;
   }
 }
 
